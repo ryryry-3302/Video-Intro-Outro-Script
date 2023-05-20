@@ -6,13 +6,25 @@ import os
 from moviepy.editor import * 
 from moviepy.video.tools.segmenting import findObjects
 
-def videointromaker(filename):
-	title = filename.strip(".mp4")
+
+#Function used to automatically add a new line to string that is too long
+def insert_newline(title, length):
+    if len(title) <= length:
+        return title
+    else:
+        split_index = title[:length].rfind(" ")  # Find the last space within the specified length
+        new_title = title[:split_index] + "\n" + title[split_index+1:]
+        return new_title
+
+
+
+def videointromaker(filename, video_title):
+	
 	# screen size
 	screensize = (1560, 1080)
 	
 	# creating a text clip of color green, font is Arial and size is 80
-	txtClip = TextClip(title, color = 'gold', font = "Monteseratt",
+	txtClip = TextClip(video_title, color = 'white', font = "Monteseratt",
 					kerning = 5, fontsize = 50)
 
 	title_clip = txtClip
@@ -33,7 +45,7 @@ def videointromaker(filename):
 dir_list = os.listdir("./vids_to_edit")
 
 for videoname in dir_list:
-	videoname = videoname.replace("Peter Tan ", "").strip()
+	video_title = videoname.replace("Peter Tan ", "").strip()
+	video_title = video_title.strip(".mp4").upper()
     
-
-	videointromaker(videoname)
+	videointromaker(videoname, insert_newline(video_title, 20))
