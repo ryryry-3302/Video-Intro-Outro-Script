@@ -6,6 +6,8 @@ import os
 from moviepy.editor import * 
 from moviepy.video.tools.segmenting import findObjects
 
+from moviepy.config import change_settings
+change_settings({"IMAGEMAGICK_BINARY": r"D:\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})
 
 #Function used to automatically add a new line to string that is too long
 def insert_newline(title, length):
